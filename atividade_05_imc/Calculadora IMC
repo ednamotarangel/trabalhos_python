@@ -1,0 +1,99 @@
+
+from tkinter import *
+import tkinter
+
+raiz = Tk()
+class BMICalculator():
+  def __init__(self):
+     self.raiz = raiz
+     self.janela()
+     self.IMC_Design()
+     raiz.mainloop()
+
+  def janela(self):
+    self.raiz.title("Calculadora de IMC")
+    self.raiz.configure(bg= 'gray')
+    self.raiz.geometry("590x250")
+    
+
+  def IMC_Design(self): 
+   self.peso_label = Label( text="Digite o seu peso (Kg): ", bg='gray', relief='flat', font=("Arial", 10, "bold"))
+   self.peso_label.grid(column=0, row=250, padx=10, pady=35)
+   self.box_peso = Entry( width=1,  font=("Arial", 10, "bold"))
+   self.box_peso.place(height=25, width=55, x=160, y=35)
+
+   self.altura_label = Label( text="Digite o sua altura (m):",  bg='gray', font=("Arial", 10, "bold") )
+   self.altura_label.grid(column=0, row=300, padx=0, pady=0, sticky='we')
+   self.box_altura = Entry( width=1,  font=("Arial", 10, "bold"))
+   self.box_altura.place(height=25, width=55, x=160, y=90)
+
+   self.imc_tela = Label( text="IMC:",  bg='gray', font=("Helvetiva", 20, "bold") )
+   self.imc_tela.place(x=20, y=140)
+
+   self.resultado_imc = Label( bg='gray', fg='red', font=("Helvetiva", 15, "bold") )
+   self.resultado_imc.place(x=85, y=145)
+
+   self.resultado = Label( bg='gray', font=("Helvetiva", 10, "bold") )
+   self.resultado.place(x=50, y=185)
+
+   self.botao = Button( text=("Calcular"), font=("Helvetiva", 15, "bold"), command = self.Calculate_BMI)
+   self.botao.place( x=400, y=70, height=90, width=90)
+
+
+  def Calculate_BMI(self):
+   
+    try:
+     self.peso = float(self.box_peso.get())
+    except ValueError:
+     if self.box_peso.get() == '':
+      self.resultado_imc ['text'] = ''
+      self.resultado ['text'] = ("Favor digitar o seu peso")
+     else:
+      self.resultado_imc ['text'] = ''
+      self.resultado ['text'] = ("Peso inválido! Digite valores com no máximo duas casas decimais, EX:85.30")
+    except UnboundLocalError:
+     self.resultado ['text'] = ("Favor digitar o seu peso")
+    
+    else:
+     
+     try:  
+      self.altura = float(self.box_altura.get())
+        
+     except ValueError:
+      if self.box_altura.get() == '':
+       self.resultado_imc ['text'] = ''
+       self.resultado ['text'] = ("Favor digitar a sua Altura!")
+      else:
+       self.resultado_imc ['text'] = ''
+       self.resultado ['text'] = ("Altura inválida! Digite valores com no máximo duas casas decimais, EX:1.70")
+     except UnboundLocalError:
+      self.resultado_imc ['text'] = ''
+      self.resultado ['text'] = ("Favor digitar a sua Altura!")
+     else: 
+      imc = (self.peso / (self.altura**2))
+      self.Exibe_Resultado(imc)
+
+  def Exibe_Resultado(self, imc):
+    
+    self.resultado_imc ['text'] = (f"Seu IMC é: {imc:.2f}")
+
+    if imc < 16:
+     self.resultado ['text'] = ("Seu IMC indica que você está com Magreza grave !")
+    elif imc < 17:
+     self.resultado ['text'] = ("Seu IMC indica que você está com Magreza moderada !")
+    elif imc < 18.5:
+     self.resultado ['text'] = ("Seu estado é de Magreza leve !")
+    elif imc < 25:
+     self.resultado ['text'] = ("Seu IMC indica que você está Saudável!")
+    elif imc < 30: 
+     self.resultado ['text'] = ("Seu IMC indica que você está com Sobrepeso !")
+    elif imc < 35:
+     self.resultado ['text'] = ("Seu IMC indica que você está Obesidade Grau I !")
+    elif imc < 40:
+     self.resultado ['text'] = ("Seu IMC indica que você está com Obesidade Grau II !")
+    else:
+     self.resultado ['text'] = ("Seu IMC indica que você está com Obesidade Grau III !")
+
+BMICalculator()
+
+
