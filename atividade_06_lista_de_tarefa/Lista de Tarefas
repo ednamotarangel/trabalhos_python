@@ -1,0 +1,60 @@
+from tkinter import *
+
+raiz = Tk()
+class ToDoListApp():
+  def __init__(self):
+     self.raiz = raiz
+     self.janela()
+     self.ltb_Design()
+     raiz.mainloop()
+     #self.lsbox.insert(END, adicionar.get())
+
+  def janela(self):
+    self.raiz.title("Lista de Tarefas")
+    self.raiz.configure(bg= 'gray')
+    self.raiz.geometry("590x250")
+    self.raiz.resizable(width=TRUE, height=TRUE)
+
+  def add_task(self):
+    novaTarefa = self.box_tarefa.get()
+    self.lsbox.insert(END, novaTarefa)
+    self.box_tarefa.delete(0, END)
+
+  def remove_task(self):
+      #try:
+       apagarTarefa = self.lsbox.curselection()
+       self.lsbox.delete(apagarTarefa)
+       
+    
+
+  def ltb_Design(self):
+   
+   self.titulo_janela = Label(text="MINHAS TAREFAS",  bg='gray',font=("Helvetiva", 15, "bold"))
+   self.titulo_janela.place(height=55, width=175, x=210, y=0) 
+
+   self.tarefa = Label( text="Adicione uma tarefa à sua lista: ", bg='gray', relief='flat', font=("Arial", 10, "bold"))
+   self.tarefa.grid(column=0, row=250, padx=10, pady=55)
+   adicionar = StringVar()
+   self.box_tarefa = Entry(textvariable=adicionar, width=1,  font=("Arial", 10, "bold"))
+   self.box_tarefa.place(height=25, width=395, x=12, y=85)
+
+   self.botao_inserir = Button( text=("Adicionar"), font=("Helvetiva", 10, "bold"), command = self.add_task)
+   self.botao_inserir.place( x=450, y=85, height=25, width=90)
+
+   self.botao_deletar = Button( text=("Deletar"), font=("Helvetiva", 10, "bold"), command = self.remove_task)
+   self.botao_deletar.place( x=450, y=122, height=25, width=90)
+
+   self.botao_atualizar = Button( text=("Atualizar"), font=("Helvetiva", 10, "bold"), command = self.add_task)
+   self.botao_atualizar.place( x=450, y=160, height=25, width=90)
+   
+   self.lsbox = Listbox(raiz, width=60)
+   self.lsbox.place(height=55, width=395, x=12, y=125)
+
+  
+
+       
+
+     #def update_task():
+
+
+ToDoListApp()
